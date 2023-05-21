@@ -79,13 +79,17 @@ def message_text(event):
     # userIDプロパティを取得する https://teratail.com/questions/214390
     userID=event.source.user_id
     logging.info("in messege_text userID=%s", userID)
+    dispname=line_bot_api.get_profile(userID).display_name
 
     if not isLimit(userID):
         logging.info("under limit")
-        response = generate_response(message)
+        response1 = generate_response(message)
     else:
         logging.info("exceed limit")
-        response = "See you tommorrow!"
+        response1 = "See you tommorrow!"
+
+    response = dispname + "さん、" + response1
+    logging.info("in messege_text response=%s", response)
 
     line_bot_api.reply_message(
         event.reply_token,
