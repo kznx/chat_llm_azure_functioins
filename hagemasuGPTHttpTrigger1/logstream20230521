@@ -1,3 +1,23 @@
+event={
+    "deliveryContext": {"isRedelivery": false}, 
+    "message": {
+        "id": "456023478476950116", 
+        "text": "\u30ea\u30df\u30c3\u30c8\u306e\u30c6\u30b9\u30c8", 
+        "type": "text"
+    }, 
+    "mode": "active", 
+    "replyToken": "274c6104167c4133bb42c0ee460e34e7", 
+    "source": {
+        "type": "user", 
+        "userId": "Uc1aed346db65dab0cc851d46d2af84c0"
+    }, 
+    "timestamp": 1684642487122, 
+    "type": "message", 
+    "webhookEventId": "01H0Y88Q76KCS2VMN3WXXQTSJ1"
+}
+
+
+
 2023-05-20T23:10:45Z   [Verbose]   Request successfully matched the route with name 'hagemasuGPTHttpTrigger1' and template 'api/hagemasuGPTHttpTrigger1'
 2023-05-20T23:10:45Z   [Information]   Executing 'Functions.hagemasuGPTHttpTrigger1' (Reason='This function was programmatically called via the host APIs.', Id=cca9d3d5-7f15-4e9b-ad04-61c45f7516a9)
 2023-05-20T23:10:45Z   [Verbose]   Sending invocation id:cca9d3d5-7f15-4e9b-ad04-61c45f7516a9

@@ -32,32 +32,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     body = req.get_body().decode("utf-8")
     logging.info("Request body: HttpTrigger1" + body)
 
-    # JSONテキストを辞書型に変換、userIDプロパティを取得する
-    body_dic = json.loads(body)
-    logging.info("Request data dic=%s", body_dic)
-    # events属性が辞書型に存在するかどうかを確認する
-    if "events" in body_dic:
-    # events属性が存在する場合の処理
-        logging.info("events exists")
-        if body_dic["events"] is None:
-        # events属性の値がNoneの場合の処理
-            logging.info("events is None")
-        else:
-            # events属性の値がNoneでない場合の処理
-            logging.info("events is not None")
-            # 配列の真偽値を判定する
-            if not body_dic["events"]:
-                # 配列が空の場合の処理
-                logging.info("events is empty")
-            else:
-                # 配列が空でない場合の処理
-                logging.info("events is not empty")
-                userID = body_dic["events"][0]["source"]["userId"]
-                logging.info("Request userID=" + userID)
-    else:
-    # events属性が存在しない場合の処理
-        logging.info("events does not exist")
-
     # handle webhook body
     try:
         handler.handle(body, signature)
@@ -65,6 +39,11 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         func.HttpResponse(status_code=400)
 
     return func.HttpResponse('OK')
+
+def isLimit(userID):
+    islimit=False
+
+    return islimit
 
 def generate_response(message):
     # OpenAI APIを使用して返答を生成する
@@ -97,7 +76,17 @@ def generate_response(message):
 @handler.add(MessageEvent, message=TextMessage)
 def message_text(event):
     message = event.message.text
-    response = generate_response(message)
+    # userIDプロパティを取得する https://teratail.com/questions/214390
+    userID="aaa" # event['source']['userId']
+    logging.info("in messege_text userID=%s", userID)
+
+    if not isLimit(userID):
+        logging.info("under limit")
+        response = generate_response(message)
+    else:
+        logging.info("exceed limit")
+        response = "See you tommorrow!"
+
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=response)
