@@ -77,7 +77,7 @@ def generate_response(message):
 def message_text(event):
     message = event.message.text
     # userIDプロパティを取得する https://teratail.com/questions/214390
-    userID="aaa" # event['source']['userId']
+    userID=event.source.user_id
     logging.info("in messege_text userID=%s", userID)
 
     if not isLimit(userID):
