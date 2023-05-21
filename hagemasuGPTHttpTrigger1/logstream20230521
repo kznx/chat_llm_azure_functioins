@@ -1,0 +1,39 @@
+2023-05-20T23:10:45Z   [Verbose]   Request successfully matched the route with name 'hagemasuGPTHttpTrigger1' and template 'api/hagemasuGPTHttpTrigger1'
+2023-05-20T23:10:45Z   [Information]   Executing 'Functions.hagemasuGPTHttpTrigger1' (Reason='This function was programmatically called via the host APIs.', Id=cca9d3d5-7f15-4e9b-ad04-61c45f7516a9)
+2023-05-20T23:10:45Z   [Verbose]   Sending invocation id:cca9d3d5-7f15-4e9b-ad04-61c45f7516a9
+2023-05-20T23:10:45Z   [Verbose]   Posting invocation id:cca9d3d5-7f15-4e9b-ad04-61c45f7516a9 on workerId:673810c5-1cb0-4683-b6e7-03451d4ac2b5
+2023-05-20T23:10:45Z   [Information]   Python HTTP trigger function processed a request.
+2023-05-20T23:10:45Z   [Information]   Request body: HttpTrigger1
+{"destination":"U5b5a1b4a962ee6588eae274f7a3984a1","events":[
+    {"type":"message","message":
+        {"type":"text",
+        "id":"455992876834714460",
+        "text":"早朝覚醒、ツラい"},
+        "webhookEventId":"01H0XPVZNJVF7TMBFKY66HD58S",
+        "deliveryContext":{"isRedelivery":false},
+        "timestamp":1684624244349,
+        "source":{"type":"user","userId":"Uc1aed346db65dab0cc851d46d2af84c0"}, // ユーザID
+        "replyToken":"961523a70d0e464a9c4550dd070bac8b","mode":"active"
+    }]
+}
+2023-05-20T23:11:00Z   [Information]   Executed 'Functions.hagemasuGPTHttpTrigger1' (Succeeded, Id=cca9d3d5-7f15-4e9b-ad04-61c45f7516a9, Duration=15824ms)
+2023-05-20T23:11:53Z   [Verbose]   Received request to drain the host
+2023-05-20T23:11:53Z   [Verbose]   Received request to drain the host
+2023-05-20T23:11:53Z   [Information]   DrainMode mode enabled
+2023-05-20T23:11:53Z   [Information]   Calling StopAsync on the registered listeners
+2023-05-20T23:11:53Z   [Information]   Call to StopAsync complete, registered listeners are now stopped
+2023-05-20T23:12:00Z   [Information]   Host lock lease acquired by instance ID '000000000000000000000000064952A1'.
+2023-05-20T23:12:20Z   [Information]   Host lock lease acquired by instance ID '00000000000000000000000069A602C5'.
+
+
+
+import base64
+import hashlib
+import hmac
+
+channel_secret = '...' # Channel secret string
+body = '...' # Request body string
+hash = hmac.new(channel_secret.encode('utf-8'),
+    body.encode('utf-8'), hashlib.sha256).digest()
+signature = base64.b64encode(hash)
+# Compare x-line-signature request header and the signature

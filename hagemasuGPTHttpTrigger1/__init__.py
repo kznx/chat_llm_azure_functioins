@@ -1,5 +1,6 @@
 import logging
 import os
+import json
 import openai
 import azure.functions as func
 
@@ -30,6 +31,32 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     # get request body as text
     body = req.get_body().decode("utf-8")
     logging.info("Request body: HttpTrigger1" + body)
+
+    # JSONテキストを辞書型に変換、userIDプロパティを取得する
+    body_dic = json.loads(body)
+    logging.info("Request data dic=%s", body_dic)
+    # events属性が辞書型に存在するかどうかを確認する
+    if "events" in body_dic:
+    # events属性が存在する場合の処理
+        logging.info("events exists")
+        if body_dic["events"] is None:
+        # events属性の値がNoneの場合の処理
+            logging.info("events is None")
+        else:
+            # events属性の値がNoneでない場合の処理
+            logging.info("events is not None")
+            # 配列の真偽値を判定する
+            if not body_dic["events"]:
+                # 配列が空の場合の処理
+                logging.info("events is empty")
+            else:
+                # 配列が空でない場合の処理
+                logging.info("events is not empty")
+                userID = body_dic["events"][0]["source"]["userId"]
+                logging.info("Request userID=" + userID)
+    else:
+    # events属性が存在しない場合の処理
+        logging.info("events does not exist")
 
     # handle webhook body
     try:
