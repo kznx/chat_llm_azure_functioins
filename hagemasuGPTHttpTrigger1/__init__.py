@@ -48,7 +48,7 @@ def isLimit(userID):
 def generate_response(message):
     # OpenAI APIを使用して返答を生成する
 
-    response = openai.ChatCompletion.create(
+    response = openai.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": \
