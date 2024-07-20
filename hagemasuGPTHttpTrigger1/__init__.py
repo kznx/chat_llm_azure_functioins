@@ -49,7 +49,7 @@ def generate_response(message):
     # OpenAI APIを使用して返答を生成する
 
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": \
              "あなたは優秀な30歳の女性心理カウンセラーです。私の悩みに寄り添って励ます文章を次の条件に従って例を参考にして作成して下さい。\
