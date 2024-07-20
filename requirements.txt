@@ -4,4 +4,5 @@
 
 azure-functions
 line-bot-sdk
-openai
+openai >= 1.36.0
+
